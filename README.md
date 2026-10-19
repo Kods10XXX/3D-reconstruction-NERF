@@ -145,6 +145,56 @@ A CUDA-compatible GPU is recommended for training.
 - Include reconstruction screenshots and quantitative comparison plots.
 - Add automated environment setup and dependency versioning.
 
+  ## Biomedical Extension: NeRF for 3D CT Reconstruction
+
+The second notebook, [`Projet_NeRF_CT_Final.ipynb`](Projet_NeRF_CT_Final.ipynb), extends the original NeRF project to biomedical imaging. It explores how Neural Radiance Fields and GPU acceleration can be applied to the reconstruction and visualization of 3D medical volumes from simulated cone-beam CT projections.
+
+### Objectives
+
+- Adapt the NeRF pipeline to biomedical imaging.
+- Generate simulated cone-beam projections from a CT volume.
+- Accelerate model training using PyTorch, CUDA, and mixed-precision computation.
+- Evaluate the training process and visualize the resulting 3D structures.
+
+### Dataset and Experimental Setup
+
+The experiments use CT data from the **Pancreas-CT dataset (NIH / TCIA)**.
+
+| Parameter | Configuration |
+|---|---|
+| Input data | CT volume in DICOM format |
+| Projection geometry | Cone-beam |
+| Projection angles | 90 |
+| Detector resolution | 160 × 160 |
+| Volume resolution | 128³ |
+| Training iterations | 8,000 |
+| GPU | NVIDIA T4 |
+| Framework | PyTorch |
+| Numerical precision | FP16 mixed precision |
+
+### Methodology
+
+1. **CT data preparation:** Load the medical volume and prepare it for the reconstruction pipeline.
+2. **Projection simulation:** Generate cone-beam projections using the Beer–Lambert attenuation model.
+3. **NeRF training:** Train a neural network on the simulated projections using GPU acceleration and mixed-precision computation.
+4. **Visualization and reconstruction:** Generate novel views, visualize reconstructed slices, and extract a 3D surface using the Marching Cubes algorithm.
+
+### Preliminary Results
+
+- The training MSE decreases from approximately \(10^5\) to approximately 20 over 8,000 iterations, with the loss still decreasing at the end of the observed training period.
+- Synthesized projections reproduce the overall silhouette and large-scale structures of the reference data, while fine details remain smoothed.
+- The pipeline produces novel-view visualizations, a reconstructed slice at \(z = 0\), and a rotating 3D scene.
+
+These results are preliminary and demonstrate the feasibility of adapting the NeRF pipeline to simulated biomedical projection data. They do not establish clinical reconstruction accuracy.
+
+### Technologies
+
+`Python` · `PyTorch` · `CUDA` · `NeRF` · `Cone-Beam CT` · `DICOM` · `FP16 Mixed Precision` · `Marching Cubes` · `Google Colab`
+
+### Notebook
+
+Open [`Projet_NeRF_CT_Final.ipynb`](Projet_NeRF_CT_Final.ipynb) to explore the implementation, training experiments, loss evolution, and visualization results.
+
 ## Author
 
 **Kods Bechri**  
